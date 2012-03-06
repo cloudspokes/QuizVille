@@ -21,7 +21,7 @@ end
 def get_quizzes(user = false, date = Date.today)
   
   # SOQL query for Quick_Quiz__c 
-  query = "SELECT Id, Name, Quiz_Date__c, Number_Correct__c, Total_Time__c, Member__r.Name FROM Quick_Quiz__c WHERE Quiz_Date__c = #{date}"
+  query = "SELECT Id, Name, Quick_Quiz__c, Elapsed_Time__c, Elapsed_Time_Seconds__c, Is_Correct__c, Type__c, Member__r.Name FROM Quick_Quiz_Answer__c WHERE Quiz_Date__c = #{date}"
  
   if user
     query += " AND Member__r.Name = '#{user}'"
@@ -33,7 +33,7 @@ end
 def get_answers(user = false, date = Date.today)
   
   # SOQL query for Quick_Quiz_Answer__c 
-  query = "SELECT Id, Name, Language__c, Is_Correct__c, Time__c, Quick_Quiz__c, Quick_Quiz__r.Member__r.Name FROM Quick_Quiz_Answer__c WHERE Quick_Quiz__r.Quiz_Date__c = #{date}"
+  query = "SELECT Id, Name, Quick_Quiz__c, Elapsed_Time__c, Elapsed_Time_Seconds__c, Is_Correct__c, Type__c, Quick_Quiz__r.Member__r.Name FROM Quick_Quiz_Answer__c WHERE Quick_Quiz__r.Quiz_Date__c = #{date}"
  
   if user
     query += " AND Quick_Quiz__r.Member__r.Name = '#{user}'"

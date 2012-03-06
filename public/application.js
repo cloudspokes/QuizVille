@@ -2,7 +2,7 @@ $(function() {
   var channel = $('#channel').text();
   var username = $('#username').text();
 
-  var cometd = new Faye.Client('http://quizville-cometd.herokuapp.com/cometd', {timeout: 120});
+  var cometd = new Faye.Client('http://qq-server.herokuapp.com//cometd', {timeout: 120});
   cometd.disable('websocket');
   
   if(channel) {
@@ -10,7 +10,7 @@ $(function() {
       console.log(message);
       m = message.sobject;
       
-      $('<div class="answer" id="'+ m.Id +'"><span class="user">'+ username +'</span><span class="language '+ m.Language__c +'">'+ m.Language__c +'</span><span class="correct '+ m.Is_Correct__c +'">'+ m.Is_Correct__c  +'</span><span class="time">'+ m.Time__c  +'</span></div>')
+      $('<div class="answer" id="'+ m.Id +'"><span class="user">'+ username +'</span><span class="language '+ m.Type__c +'">'+ m.Type__c +'</span><span class="correct '+ m.Is_Correct__c +'">'+ m.Is_Correct__c  +'</span><span class="time">'+ m.Elapsed_Time_Seconds__c  +'</span></div>')
         .appendTo('#answers');
     });
     subscription.callback(function() {
@@ -30,9 +30,9 @@ $(function() {
     cometd.publish("/q/demo", 
       {"sobject": {
         "Id":"~~id~~",
-        "Language__c": language,
+        "Type__c": language,
         "Is_Correct__c": correct,
-        "Time__c": time}
+        "Elapsed_Time_Seconds__c": time}
       }
     );
   };
